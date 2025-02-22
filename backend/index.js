@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 dotenv.config();
 import connectDB from './config/db.js';
 import userModel from './models/uesr.model.js';
@@ -7,6 +9,8 @@ connectDB();
 
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
 
 app.use(express.json());
@@ -15,30 +19,26 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 }  );
 
-app.post("/clerk/webhook", async (req, res) => {
+app.post("/api/save-user", async (req, res) => {
   try {
-    const { id, email_addresses, first_name, last_name } = req.body.data;
-    const email = email_addresses[0]?.email_address;
+    const { clerkId, email, name } = req.body;
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ clerkId: id });
-    if (!existingUser) {
-      const newUser = new User({
-        clerkId: id,
-        email,
-        name: `${first_name} ${last_name}`,
-      });
+    const user = new userModel({
+      clerkId,
+      email,
+      name,
+    });
+   
 
-      await newUser.save();
-      console.log("✅ New User Saved to MongoDB:", newUser);
-    }
-
-    res.status(200).json({ message: "User processed successfully" });
+    
+    await user.save();
+    res.status(201).json(user);
   } catch (error) {
-    console.error("Error saving user:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ message: 'Server Error', error });
   }
 });
+
+
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
