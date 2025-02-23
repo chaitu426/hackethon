@@ -190,6 +190,7 @@ export function DashboardContent({ activeTab }) {
                 className="w-full p-4 border rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-4 focus:ring-green-500 outline-none shadow-sm"
                 required
             />
+            
             <input
                 type="text"
                 name="category"
@@ -207,8 +208,10 @@ export function DashboardContent({ activeTab }) {
             placeholder="📝 Crop Description"
             value={cropData.description}
             onChange={handleChange}
-            className="w-full p-4 border rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-4 focus:ring-green-500 outline-none shadow-sm"
+            className="w-full p-4 mb-3 border rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white focus:ring-4 focus:ring-green-500 outline-none shadow-sm"
         ></textarea>
+
+<label className="text-xl  font-bold text-gray-800 dark:text-gray-300">Showing and Harvesting dates</label>
 
         {/* Dates & Fertilizer/Pesticide Info */}
         <div className="grid grid-cols-2 gap-6">
@@ -310,7 +313,7 @@ export function DashboardContent({ activeTab }) {
 
 function StatCard({ title, value, change, isPositive, icon }) {
     return (
-        <div className="bg-white p-6 rounded-xl shadow-sm">
+        <div className="bg-zinc-200 p-6 rounded-xl shadow-sm">
             <div className="flex justify-between items-start mb-4">
                 <div>{icon}</div>
             </div>

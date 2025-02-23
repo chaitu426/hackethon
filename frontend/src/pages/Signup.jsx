@@ -3,8 +3,8 @@ import { SignIn } from '@clerk/clerk-react'
 
 const Signup = () => {
   return (
-    <div>
-        <SignIn signUpUrl='/signup' forceRedirectUrl={"/"} />
+    <div className='flex items-center justify-center h-screen'>
+        <SignIn signUpUrl='/signup'  forceRedirectUrl={"/"} />
     </div>
   )
 }
